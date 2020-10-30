@@ -19,8 +19,8 @@ import javax.inject.Named;
 @ViewScoped
 public class FuncionarioBean implements Serializable{
     
-    private List funcionarios;
-    private Funcionarios funcionario;
+     List funcionarios;
+     Funcionarios funcionario;
 
     public FuncionarioBean() {
         funcionarios = new FuncionariosDAO().buscarTodas();

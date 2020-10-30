@@ -13,7 +13,7 @@
             <p:messages id="messages" showDetail="true" closable="true" />
 
             <div align="center">
-                <p:dataTable var="lista" value="#{EndereBean.enderecos}"
+                <p:dataTable var="lista" value="#{enderecoBean.enderecos}"
                              id="tabela" emptyMessage="Nenhum registro encontrado"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
@@ -24,30 +24,30 @@
                     <p:column headerText="Localidade" sortBy="#{lista.localidade}" filterBy="#{lista.localidade}">
                         <h:outputText value="#{lista.localidade}" />
                     </p:column>
-                     <p:column headerText="Logradouro" sortBy="#{lista.logradouro}" filterBy="#{lista.logradouro}">
+                    <p:column headerText="Logradouro" sortBy="#{lista.logradouro}" filterBy="#{lista.logradouro}">
                         <h:outputText value="#{lista.logradouro}" />
                     </p:column>
-                     <p:column headerText="Bairro" sortBy="#{lista.bairro}" filterBy="#{lista.bairro}">
+                    <p:column headerText="Bairro" sortBy="#{lista.bairro}" filterBy="#{lista.bairro}">
                         <h:outputText value="#{lista.bairro}" />
                     </p:column>
-                     <p:column headerText="Complemento" sortBy="#{lista.complemento}" filterBy="#{lista.complemento}">
+                    <p:column headerText="Complemento" sortBy="#{lista.complemento}" filterBy="#{lista.complemento}">
                         <h:outputText value="#{lista.complemento}" />
                     </p:column>
                     <p:column headerText="UF" sortBy="#{lista.uf}" filterBy="#{lista.uf}">
                         <h:outputText value="#{lista.uf}" />
                     </p:column>
-                     <p:column headerText="Cep" sortBy="#{lista.cep}" filterBy="#{lista.cep}">
+                    <p:column headerText="Cep" sortBy="#{lista.cep}" filterBy="#{lista.cep}">
                         <h:outputText value="#{lista.cep}" />
                     </p:column>
                     <p:column headerText="Opções" exportable="false">
                         <center>
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
-                                <f:setPropertyActionListener target="#{EnderecoBean.endereco}"
+                                <f:setPropertyActionListener target="#{enderecoBean.endereco}"
                                                              value="#{lista}" />
                             </p:commandButton>
 
                             <p:commandButton icon="ui-icon-trash" value="Deletar" onclick="PF('remove').show();"> 
-                                <f:setPropertyActionListener target="#{EnderecoBean.endereco}"
+                                <f:setPropertyActionListener target="#{enderecoBean.endereco}"
                                                              value="#{lista}" />
                             </p:commandButton> 
                         </center>
@@ -86,45 +86,25 @@
 
             </div>
 
-            <p:dialog header="Novo" widgetVar="record" modal="false" focus="endereco">
+            <p:dialog header="Novo" widgetVar="record" modal="false">
 
 
                 <p:panelGrid id="panelRecord" columns="2"> 
                     Loclidade:
-                    <p:inputText id="localidade" value="#{EnderecoBean.endereco.localidade}" />
-                </p:panelGrid>
-               
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="localidade" value="#{enderecoBean.endereco.localidade}" />
                     CEP:
-                    <p:inputText id="cep" value="#{EnderecoBean.endereco.cep}" />
-                </p:panelGrid>
-                
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="cep" value="#{enderecoBean.endereco.cep}" />
                     Numero:
-                    <p:inputText id="numero" value="#{EnderecoBean.endereco.numero}" />
-                </p:panelGrid>
-                
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="numero" value="#{enderecoBean.endereco.numero}" />
                     Logradouro:
-                    <p:inputText id="logradouro" value="#{EnderecoBean.endereco.logradouro}" />
-                </p:panelGrid>
-                
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="logradouro" value="#{enderecoBean.endereco.logradouro}" />
                     Complemento
-                    <p:inputText id="complemento" value="#{EnderecoBean.endereco.complemento}" />
-                </p:panelGrid>
-                
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="complemento" value="#{enderecoBean.endereco.complemento}" />
                     Bairro:
-                    <p:inputText id="bairro" value="#{EnderecoBean.endereco.bairro}" />
-                </p:panelGrid>
-                
-                <p:panelGrid id="panelRecord" columns="2"> 
+                    <p:inputText id="bairro" value="#{enderecoBean.endereco.bairro}" />
                     UF:
-                    <p:inputText id="uf" value="#{EnderecoBean.endereco.uf}" />
+                    <p:inputText id="uf" value="#{enderecoBean.endereco.uf}" />
                 </p:panelGrid>
-
-
                 <br/>
                 <p:commandButton value="Salvar"  
                                  actionListener="#{enderecoBean.salvar}" onclick="record.hide()" alt="Record"/> 

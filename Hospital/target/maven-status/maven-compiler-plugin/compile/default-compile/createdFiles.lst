@@ -4,12 +4,15 @@ com/gabrielrigolon/hospital/dao/ProntuariosDAO.class
 com/gabrielrigolon/hospital/dao/PacientesDAO.class
 com/gabrielrigolon/hospital/util/PersistenceUtil.class
 com/gabrielrigolon/hospital/dao/EnderecosDAO.class
+com/gabrielrigolon/hospital/bean/ProntuarioBean.class
 com/gabrielrigolon/hospital/dao/FuncionariosDAO.class
 com/gabrielrigolon/hospital/model/Prontuarios.class
-com/gabrielrigolon/hospital/resources/JavaEE8Resource.class
+com/gabrielrigolon/hospital/service/ServicosTipoFuncionario.class
+com/gabrielrigolon/hospital/bean/FuncionarioBean.class
+com/gabrielrigolon/hospital/bean/PacienteBean.class
 com/gabrielrigolon/hospital/model/Pacientes.class
-com/gabrielrigolon/hospital/JAXRSConfiguration.class
 com/gabrielrigolon/hospital/bean/EnderecoBean.class
 com/gabrielrigolon/hospital/bean/TipoFuncionarioBean.class
 com/gabrielrigolon/hospital/model/Enderecos.class
+br/edu/uniacademia/hospital/JAXRSConfiguration.class
 com/gabrielrigolon/hospital/model/TipoFuncionario.class

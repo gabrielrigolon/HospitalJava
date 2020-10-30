@@ -22,13 +22,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gabrielrigolon
+ * @author tassi
  */
 @Entity
 @Table(name = "Funcionarios")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Funcionarios.findAll", query = "SELECT f FROM Funcionarios f"),
     @NamedQuery(name = "Funcionarios.findByIdFuncionario", query = "SELECT f FROM Funcionarios f WHERE f.idFuncionario = :idFuncionario"),
@@ -128,6 +131,7 @@ public class Funcionarios implements Serializable {
         this.crm = crm;
     }
 
+    @XmlTransient
     public List<Prontuarios> getProntuariosList() {
         return prontuariosList;
     }

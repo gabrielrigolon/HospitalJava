@@ -25,13 +25,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gabrielrigolon
+ * @author tassi
  */
 @Entity
 @Table(name = "Pacientes")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pacientes.findAll", query = "SELECT p FROM Pacientes p"),
     @NamedQuery(name = "Pacientes.findByIdPaciente", query = "SELECT p FROM Pacientes p WHERE p.idPaciente = :idPaciente"),
@@ -139,6 +142,7 @@ public class Pacientes implements Serializable {
         this.tipoSanguineo = tipoSanguineo;
     }
 
+    @XmlTransient
     public List<Prontuarios> getProntuariosList() {
         return prontuariosList;
     }

@@ -24,8 +24,8 @@ import javax.inject.Named;
 @ViewScoped
 public class EnderecoBean implements Serializable{
     
-    private List enderecos;
-    private Enderecos endereco;
+    List enderecos;
+    Enderecos endereco;
 
     public EnderecoBean() {
         enderecos = new EnderecosDAO().buscarTodas();

@@ -22,13 +22,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gabrielrigolon
+ * @author tassi
  */
 @Entity
 @Table(name = "Prontuarios")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Prontuarios.findAll", query = "SELECT p FROM Prontuarios p"),
     @NamedQuery(name = "Prontuarios.findByIdProntuario", query = "SELECT p FROM Prontuarios p WHERE p.idProntuario = :idProntuario"),
@@ -49,8 +51,7 @@ public class Prontuarios implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "descricao")
     private String descricao;
     @Size(max = 255)
@@ -146,7 +147,7 @@ public class Prontuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "com.gabrielrigolon.hospital.model.Prontuarios[ idProntuario=" + idProntuario + " ]";
+        return "br.edu.uniacademia.hospital.model.Prontuarios[ idProntuario=" + idProntuario + " ]";
     }
     
 }

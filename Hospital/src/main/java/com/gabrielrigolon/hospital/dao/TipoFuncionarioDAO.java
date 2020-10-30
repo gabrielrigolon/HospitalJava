@@ -7,16 +7,13 @@ package com.gabrielrigolon.hospital.dao;
 
 import com.gabrielrigolon.hospital.model.TipoFuncionario;
 import com.gabrielrigolon.hospital.util.PersistenceUtil;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
  *
- * @author gabrielrigolon
+ * @author tassi
  */
 public class TipoFuncionarioDAO {
 
@@ -29,117 +26,54 @@ public class TipoFuncionarioDAO {
         return tipoFuncionarioDAO;
     }
 
-    public String persistir(TipoFuncionario tipoFuncionario) {
+    public TipoFuncionario buscar(String nome) {
         EntityManager em = PersistenceUtil.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            tipoFuncionario = em.merge(tipoFuncionario);
-            em.getTransaction().commit();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.INFO, "TipoFuncionario salvo com sucesso!");
-            return "TipoFuncionario " + tipoFuncionario.getNomeTipoFuncionario() + " salvo com sucesso!";
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.flush();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foi possível salvar o tipoFuncionario!", e.getMessage());
-            if (e.getMessage().contains("ConstraintViolationException")) {
-                return "Não foi possível salvar o tipoFuncionario " + tipoFuncionario.getNomeTipoFuncionario() + ", pois o título deve ser único";
-            }
-            return "Não foi possível salvar o tipoFuncionario " + tipoFuncionario.getNomeTipoFuncionario() + "!";
-        }
-    }
+        Query query = em.createQuery("select a from TipoFuncionario a where a.nomeTipoFuncionario =:nome ");
+        query.setParameter("nome", nome);
 
-    public String removeAll() {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query query = em.createQuery("TRUNCATE TipoFuncionario");
-            query.executeUpdate();
-            em.getTransaction().commit();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.INFO, "Todos os tipoFuncionarios foram deletados!");
-            return "Todos os tipoFuncionarios foram deletados!";
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.flush();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foi possível deletar todos os tipoFuncionarios!", e.getMessage());
-            return "Não foi possível deletar todos os tipoFuncionarios!";
-        } finally {
-            em.close();
+        List<TipoFuncionario> categoria = query.getResultList();
+        if (categoria != null && categoria.size() > 0) {
+            return categoria.get(0);
         }
-    }
 
-    public String remover(TipoFuncionario tipoFuncionario) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            tipoFuncionario = em.merge(tipoFuncionario);
-            em.remove(tipoFuncionario);
-            em.getTransaction().commit();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.INFO, "TipoFuncionario removido com sucesso!");
-            return "TipoFuncionario " + tipoFuncionario.getNomeTipoFuncionario() + " removido com sucesso!";
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            em.flush();
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foi possível remover o tipoFuncionario!", e.getMessage());
-            return "Não foi possível remover o tipoFuncionario " + tipoFuncionario.getNomeTipoFuncionario() + ", pois está vinculado a um ou mais exemplares";
-        }
+        return null;
     }
 
     public List<TipoFuncionario> buscarTodas() {
-        try {
-            EntityManager em = PersistenceUtil.getEntityManager();
-            Query query = em.createQuery("SELECT l FROM TipoFuncionario l");
-            return query.getResultList();
-        } catch (Exception e) {
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foram encontrados tipoFuncionarios!", e.getMessage());
-            return new ArrayList<>();
-        }
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("from TipoFuncionario As a");
+        return query.getResultList();
     }
 
-    public TipoFuncionario buscar(long id) {
-        try {
-            EntityManager em = PersistenceUtil.getEntityManager();
-            Query query = em.createQuery("SELECT l FROM TipoFuncionario l WHERE l.id = :id");
-            query.setParameter("id", id);
-            TipoFuncionario tipoFuncionario = (TipoFuncionario) query.getSingleResult();
-            if (tipoFuncionario != null && tipoFuncionario.getIdtipoFuncionario() > 0) {
-                return tipoFuncionario;
-            } else {
-                Logger.getLogger(PersistenceUtil.class.getName()).log(Level.INFO, "Não foram encontrados tipoFuncionarios!");
-                return null;
-            }
-        } catch (Exception e) {
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foram encontrados tipoFuncionarios!", e.getMessage());
-            return null;
+    public void remover(TipoFuncionario tipoFuncionario) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        em.getTransaction().begin();
+        if (!em.contains(tipoFuncionario)) {
+            tipoFuncionario = em.merge(tipoFuncionario);
         }
+        em.remove(tipoFuncionario);
+        em.getTransaction().commit();
     }
 
-    public List<TipoFuncionario> buscar(String titulo) {
+    public TipoFuncionario persistir(TipoFuncionario tipoFuncionario) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        em.getTransaction().begin();
         try {
-            EntityManager em = PersistenceUtil.getEntityManager();
-            Query query = em.createQuery("SELECT l FROM TipoFuncionario l WHERE l.titulo LIKE :titulo");
-            query.setParameter("titulo", "%" + titulo + "%");
-            return query.getResultList();
+            tipoFuncionario = em.merge(tipoFuncionario);
+            em.getTransaction().commit();
+            System.out.println("Registro TipoFuncionario gravado com sucesso");
         } catch (Exception e) {
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foram encontrados tipoFuncionarios!", e.getMessage());
-            return null;
+            e.printStackTrace();
         }
+        return tipoFuncionario;
     }
 
-    public TipoFuncionario buscar(TipoFuncionario l) {
-        try {
-            EntityManager em = PersistenceUtil.getEntityManager();
-            Query query = em.createQuery("SELECT l FROM TipoFuncionario l WHERE l.id = :id");
-            query.setParameter("id", l.getIdtipoFuncionario());
-            TipoFuncionario tipoFuncionario = (TipoFuncionario) query.getSingleResult();
-            if (tipoFuncionario != null && tipoFuncionario.getIdtipoFuncionario() > 0) {
-                return tipoFuncionario;
-            } else {
-                Logger.getLogger(PersistenceUtil.class.getName()).log(Level.INFO, "Não foram encontrados tipoFuncionarios!");
-                return null;
-            }
-        } catch (Exception e) {
-            Logger.getLogger(PersistenceUtil.class.getName()).log(Level.WARNING, "Não foram encontrados tipoFuncionarios!", e.getMessage());
-            return null;
-        }
+    public void removeAll() {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery(" delete from TipoFuncionario ");
+        query.executeUpdate();
+        em.getTransaction().commit();
     }
+
 }

@@ -24,8 +24,8 @@ import javax.inject.Named;
 @ViewScoped
 public class ProntuarioBean implements Serializable{
     
-    private List prontuarios;
-    private Prontuarios prontuario;
+     List prontuarios;
+     Prontuarios prontuario;
 
     public ProntuarioBean() {
         prontuarios = new ProntuariosDAO().buscarTodas();

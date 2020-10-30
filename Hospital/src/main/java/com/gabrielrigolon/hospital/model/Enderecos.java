@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,13 +20,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gabrielrigolon
+ * @author tassi
  */
 @Entity
 @Table(name = "Enderecos")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Enderecos.findAll", query = "SELECT e FROM Enderecos e"),
     @NamedQuery(name = "Enderecos.findByIdEndereco", query = "SELECT e FROM Enderecos e WHERE e.idEndereco = :idEndereco"),
@@ -39,8 +44,8 @@ public class Enderecos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idEndereco")
     private Long idEndereco;
     @Size(max = 45)
@@ -149,6 +154,7 @@ public class Enderecos implements Serializable {
         this.cep = cep;
     }
 
+    @XmlTransient
     public List<Funcionarios> getFuncionariosList() {
         return funcionariosList;
     }
@@ -157,6 +163,7 @@ public class Enderecos implements Serializable {
         this.funcionariosList = funcionariosList;
     }
 
+    @XmlTransient
     public List<Pacientes> getPacientesList() {
         return pacientesList;
     }

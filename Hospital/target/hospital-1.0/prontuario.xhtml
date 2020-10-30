@@ -7,32 +7,35 @@
 
     <ui:define name="content">
 
-        <h2 class="page-header">Gerenciar Tipo Funcinário</h2>
+        <h2 class="page-header">Gerenciar Pacientes</h2>
         <br/>
         <h:form id="formPrincipal">
             <p:messages id="messages" showDetail="true" closable="true" />
 
             <div align="center">
-                <p:dataTable var="lista" value="#{tipoFuncionarioBean.tipoFuncionarios}"
+                <p:dataTable var="lista" value="#{prontuarioBean.prontuarios}"
                              id="tabela" emptyMessage="Nenhum registro encontrado"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
 
-                    <p:column headerText="Código" sortBy="#{lista.idtipoFuncionario}" filterBy="#{lista.idtipoFuncionario}">
-                        <h:outputText value="#{lista.idtipoFuncionario}" />
+                    <p:column headerText="Código" sortBy="#{lista.idProntuario}" filterBy="#{lista.idProntuario}">
+                        <h:outputText value="#{lista.idProntuario}" />
                     </p:column>
-                    <p:column headerText="Nome" sortBy="#{lista.nomeTipoFuncionario}" filterBy="#{lista.nomeTipoFuncionario}">
-                        <h:outputText value="#{lista.nomeTipoFuncionario}" />
+                    <p:column headerText="Descricao" sortBy="#{lista.descricao}" filterBy="#{lista.descricao}">
+                        <h:outputText value="#{lista.descricao}" />
+                    </p:column>
+                    <p:column headerText="Data" sortBy="#{lista.data}" filterBy="#{lista.data}">
+                        <h:outputText value="#{lista.data}" />
                     </p:column>
                     <p:column headerText="Opções" exportable="false">
                         <center>
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
-                                <f:setPropertyActionListener target="#{tipoFuncionarioBean.tipoFuncionario}"
+                                <f:setPropertyActionListener target="#{prontuarioBean.prontuario}"
                                                              value="#{lista}" />
                             </p:commandButton>
 
                             <p:commandButton icon="ui-icon-trash" value="Deletar" onclick="PF('remove').show();"> 
-                                <f:setPropertyActionListener target="#{tipoFuncionarioBean.tipoFuncionario}"
+                                <f:setPropertyActionListener target="#{prontuarioBean.prontuario}"
                                                              value="#{lista}" />
                             </p:commandButton> 
                         </center>
@@ -71,23 +74,27 @@
 
             </div>
 
-            <p:dialog header="Novo" widgetVar="record" modal="false" focus="tipofuncionario">
+            <p:dialog header="Novo" widgetVar="record" modal="false">
 
 
                 <p:panelGrid id="panelRecord" columns="2"> 
-                    Nome:
-                    <p:inputText id="tipofuncionario" value="#{tipoFuncionarioBean.tipoFuncionario.nomeTipoFuncionario}" />
-                </p:panelGrid>
+                    Descrição:
+                    <p:inputText id="localidade" value="#{prontuarioBean.prontuario.descricao}" />
 
+
+
+                    Data:
+                    <p:inputText id="cep" value="#{prontuarioBean.prontuario.data}" />
+                </p:panelGrid>
                 <br/>
                 <p:commandButton value="Salvar"  
-                                 actionListener="#{tipoFuncionarioBean.salvar}" onclick="record.hide()" alt="Record"/> 
+                                 actionListener="#{prontuarioBean.salvar}" onclick="record.hide()" alt="Record"/> 
             </p:dialog>
 
             <p:dialog header="Deletar" widgetVar="remove" modal="false"> 
                 Você tem certeza?
                 <p:commandButton value="Deletar"  
-                                 actionListener="#{tipoFuncionarioBean.remover}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{prontuarioBean.remover}" onclick="remove.hide()" alt="Delete" /> 
             </p:dialog>
 
 

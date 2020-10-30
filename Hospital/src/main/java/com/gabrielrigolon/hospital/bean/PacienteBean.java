@@ -24,8 +24,8 @@ import javax.inject.Named;
 @ViewScoped
 public class PacienteBean implements Serializable{
     
-    private List pacientes;
-    private Pacientes paciente;
+     List pacientes;
+     Pacientes paciente;
 
     public PacienteBean() {
         pacientes = new PacientesDAO().buscarTodas();

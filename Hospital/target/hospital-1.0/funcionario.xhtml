@@ -7,32 +7,41 @@
 
     <ui:define name="content">
 
-        <h2 class="page-header">Gerenciar Tipo Funcinário</h2>
+        <h2 class="page-header">Gerenciar Funcionários</h2>
         <br/>
         <h:form id="formPrincipal">
             <p:messages id="messages" showDetail="true" closable="true" />
 
             <div align="center">
-                <p:dataTable var="lista" value="#{tipoFuncionarioBean.tipoFuncionarios}"
+                <p:dataTable var="lista" value="#{FuncionarioBean.funcionarios}"
                              id="tabela" emptyMessage="Nenhum registro encontrado"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
 
-                    <p:column headerText="Código" sortBy="#{lista.idtipoFuncionario}" filterBy="#{lista.idtipoFuncionario}">
-                        <h:outputText value="#{lista.idtipoFuncionario}" />
+                    <p:column headerText="Código" sortBy="#{lista.idFuncionario}" filterBy="#{lista.idFuncionario}">
+                        <h:outputText value="#{lista.idFuncionario}" />
                     </p:column>
-                    <p:column headerText="Nome" sortBy="#{lista.nomeTipoFuncionario}" filterBy="#{lista.nomeTipoFuncionario}">
-                        <h:outputText value="#{lista.nomeTipoFuncionario}" />
+                    <p:column headerText="Nome" sortBy="#{lista.nomeFuncionario}" filterBy="#{lista.nomeFuncionario}">
+                        <h:outputText value="#{lista.nomeFuncionario}" />
+                    </p:column>
+                    <p:column headerText="CPF" sortBy="#{lista.cpf}" filterBy="#{lista.cpf}">
+                        <h:outputText value="#{lista.cpf}" />
+                    </p:column>
+                    <p:column headerText="RG" sortBy="#{lista.rg}" filterBy="#{lista.rg}">
+                        <h:outputText value="#{lista.rg}" />
+                    </p:column>
+                    <p:column headerText="Crm" sortBy="#{lista.crm}" filterBy="#{lista.crm}">
+                        <h:outputText value="#{lista.crm}" />
                     </p:column>
                     <p:column headerText="Opções" exportable="false">
                         <center>
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
-                                <f:setPropertyActionListener target="#{tipoFuncionarioBean.tipoFuncionario}"
+                                <f:setPropertyActionListener target="#{funcionarioBean.funcionario}"
                                                              value="#{lista}" />
                             </p:commandButton>
 
                             <p:commandButton icon="ui-icon-trash" value="Deletar" onclick="PF('remove').show();"> 
-                                <f:setPropertyActionListener target="#{tipoFuncionarioBean.tipoFuncionario}"
+                                <f:setPropertyActionListener target="#{funcionarioBean.funcionario}"
                                                              value="#{lista}" />
                             </p:commandButton> 
                         </center>
@@ -71,23 +80,29 @@
 
             </div>
 
-            <p:dialog header="Novo" widgetVar="record" modal="false" focus="tipofuncionario">
+            <p:dialog header="Novo" widgetVar="record" modal="false">
 
 
                 <p:panelGrid id="panelRecord" columns="2"> 
                     Nome:
-                    <p:inputText id="tipofuncionario" value="#{tipoFuncionarioBean.tipoFuncionario.nomeTipoFuncionario}" />
+                    <p:inputText id="nome" value="#{funcionarioBean.funcionario.nomeFuncionario}" />
+                    CPF:
+                    <p:inputText id="cpf" value="#{funcionarioBean.funcionario.cpf}" />
+                    RG:
+                    <p:inputText id="rg" value="#{funcionarioBean.funcionario.rg}" />
+                    crm:
+                    <p:inputText id="crm" value="#{funcionarioBean.funcionario.crm}" /> 
                 </p:panelGrid>
 
                 <br/>
                 <p:commandButton value="Salvar"  
-                                 actionListener="#{tipoFuncionarioBean.salvar}" onclick="record.hide()" alt="Record"/> 
+                                 actionListener="#{funcionarioBean.salvar}" onclick="record.hide()" alt="Record"/> 
             </p:dialog>
 
             <p:dialog header="Deletar" widgetVar="remove" modal="false"> 
                 Você tem certeza?
                 <p:commandButton value="Deletar"  
-                                 actionListener="#{tipoFuncionarioBean.remover}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{funcionarioBean.remover}" onclick="remove.hide()" alt="Delete" /> 
             </p:dialog>
 
 
